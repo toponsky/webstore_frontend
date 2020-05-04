@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <span>
+    {{service.form.controls['_id'].value?"Modify Category":"New Category"}}
+  </span>
+  <span style="margin-right: 0; margin-left: auto;"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose('abort')" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="container">
+  <form [formGroup]="service.form" class="normal-form">
+    <mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="controles-container">
+         
+          <mat-form-field>
+            <input formControlName="name" matInput placeholder="Category Name*">
+            <mat-error *ngIf="service.form.controls['name'].errors?.required">This field is mandatory.</mat-error>
+            <mat-error *ngIf="service.form.controls['name'].errors?.minLength">Minimun 3 charactors needs.</mat-error>
+          </mat-form-field>
+         
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid" (click)= "onSubmit()">Submit</button>
+          <button mat-raised-button color="warn" (click)= "onClear()">Clear</button>
+        </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
