@@ -12,36 +12,60 @@ import { environment } from '../../../environments/environment';
 export class ProductService {
   url: string = environment.backendUrl.admin + 'product';
   public form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
-    fullName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
-    mobile: new FormControl('',[Validators.required, Validators.minLength(8)]),
-    city: new FormControl(''),
-    gender: new FormControl('1'),
-    department: new FormControl(0),
-    hireDate: new FormControl(''),
-    isPermanent: new FormControl(false)
+    _id: new FormControl(null),
+    sku: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    name: new FormControl('', Validators.required),
+    price: new FormControl('', Validators.required),
+    cargo_price: new FormControl('', Validators.required),
+    tax_percent: new FormControl('', [Validators.required]),
+    cart_desc:  new FormControl('', [Validators.required]),
+    long_desc:  new FormControl(''),
+    thumb: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
+    stock: new FormControl(0, Validators.required),
+    sell_count: new FormControl(0, Validators.required),
+    live: new FormControl(false, Validators.required),
+    unlimited: new FormControl(0),
+    __v: new FormControl(null),
+    date_created: new FormControl(''),
+    last_updated: new FormControl('')
   });
   constructor(private httpClient: HttpClient) { }
 
 
   initialzeFormGroup() {
     this.form.setValue({
-      $key: null,
-      fullName:'',
-      mobile:'',
-      email: '',
-      city: '',
-      gender: '1',
-      department: 0,
-      hireDate: '',
-      isPermanent: false
+      _id: null,
+      __v:null,
+      sku: '',
+      name: '',
+      price: '',
+      cargo_price: '',
+      tax_percent: '',
+      cart_desc:  '',
+      long_desc:  '',
+      thumb: '',
+      image: '',
+      category: null,
+      stock: 0,
+      sell_count: 0,
+      live: false,
+      date_created: '',
+      last_updated: '',
+      unlimited: null
     });
   }
 
+  populateForm(formValues) {
+    const values = JSON.parse(JSON.stringify(formValues));
+    values.category = formValues.category._id;
+    values.date_created = values.date_created || values.last_updated;
+    this.form.setValue(values);
+  }
 
   list() {
-    return this.httpClient.get<aProduct[]>(this.url + '/list');
+    return this.httpClient.get<aProduct[]>(this.url);
   }
 
   insert(product: aProduct) {

@@ -53,7 +53,9 @@ export function aProductReduecer(state: aProductStatus = initialStatus, action: 
         loading: true
       };
     case aProductActitonTypes.UPDATE_PRODUCT_SUCCESS:
-      state.list.find(ele => ele['_id'] === action.payload['_id']).name = action.payload['name'];
+      debugger
+      let item = state.list.find(ele => ele['_id'] === action.payload['_id']);
+      Object.assign(item, action.payload);
       return {
         ...state,
         list:[...state.list],

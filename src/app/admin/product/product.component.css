@@ -13,14 +13,30 @@
 
 
 .add-bottom-padding{
-  padding: 10px;
+  padding: 15px;
+}
+
+.add-bottom-padding mat-checkbox {
+  margin-right: 30px;
 }
 
 mat-radio-group mat-radio-button {
   margin-left: 5px;
 }
 
-.button-row button {
-  margin: 5px;
-  min-width: 100px;
+.button-row {
+  display: flex;
+  margin-top: 20px;
 }
+
+.button-row button {
+  min-width: 120px;
+}
+
+.button-row > :nth-child(1) {
+  margin-left: auto;
+}
+.button-row > :nth-child(2) {
+  margin-left: 20px;
+}
+

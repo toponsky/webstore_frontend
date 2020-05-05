@@ -1,58 +1,89 @@
 <div class="container" style="margin-top: 30px;">
-  <form [formGroup]="productService.form" class="normal-form">
-    <mat-grid-list cols="2" rowHeight="300px">
+  <mat-toolbar>
+    <span>
+      {{service.form.controls['_id'].value?"Modify Product":"New Product"}}
+    </span>
+    <span style="margin-right: 0; margin-left: auto;"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose('abort')" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form [formGroup]="service.form" class="normal-form">
+    <mat-grid-list cols="2" rowHeight="500px">
       <mat-grid-tile>
         <div class="controles-container">
-          <input type="hidden" formControlName="$key">
+          <input type="hidden" formControlName="_id">
+          <input type="hidden" formControlName="__v">
           <mat-form-field>
-            <input formControlName="fullName" matInput placeholder="Full Name*">
+            <input formControlName="sku" matInput placeholder="SKU*">
             <mat-error>This field is mandatory.</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input formControlName="email" matInput placeholder="Email*">
-            <mat-error>Invalid email address.</mat-error>
+            <input formControlName="name" matInput placeholder="Name*">
+            <mat-error>This field is mandatory.</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input formControlName="mobile" matInput placeholder="Mobile*">
-            <mat-error *ngIf="productService.form.controls['mobile'].errors?.required">This field is mandatory.</mat-error>
-            <mat-error *ngIf="productService.form.controls['mobile'].errors?.minLength">Minimun 8 charactors needs.</mat-error>
+            <input type="number" formControlName="price" matInput placeholder="Price*">
+            <mat-error>This field is mandatory.</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input formControlName="city" matInput placeholder="City">
+            <input type="number" formControlName="cargo_price" matInput placeholder="Cargo Price*">
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="number" formControlName="tax_percent" matInput placeholder="Tax Per*">
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="cart_desc" matInput placeholder="Cart Desc*">
+            <mat-error>This field is mandatory.</mat-error>
           </mat-form-field>
         </div>
       </mat-grid-tile>
       
       <mat-grid-tile>
         <div class="controles-container">
-        <div class="add-bottom-padding">
-          <mat-radio-group formControlName="gender">
-            <mat-radio-button value = "1">Male</mat-radio-button>
-            <mat-radio-button value = "2">Female</mat-radio-button>
-            <mat-radio-button value = "3">Other</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <mat-form-field>
-          <mat-select formControlName="department" placeholder="Department">
-            <ng-container *ngFor="let department of departments">
-              <mat-option value="{{department.id}}">{{department.name}}</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <input formControlName="hireDate" matInput [matDatepicker]='picker' placeholder="Hire Date">
-          <mat-datepicker-toggle toggle matSuffix [for]='picker'></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div class="add-bottom-padding">
-          <mat-checkbox formControlName="isPermanent">Permanent Employee</mat-checkbox>
-        </div>
-        <div class="button-row">
-          <button mat-raised-button color="primary" type="submit" [disabled]="productService.form.invalid">Submit</button>
-          <button mat-raised-button color="warn" (click)= "onClear()">Clear</button>
-        </div>
+          <mat-form-field>
+            <mat-select formControlName="category" placeholder="Category">
+              <ng-container *ngFor="let category of categories">
+                <mat-option value="{{category._id}}">{{category.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="thumb" matInput placeholder="Thumb*">
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="image" matInput placeholder="Image*">
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="number" formControlName="stock" matInput placeholder="Stock*">
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="number" [readonly]="true" formControlName="sell_count" matInput placeholder="Sell Count">
+            <mat-error>This field is mandatory.</mat-error>
+          </mat-form-field>
+          <div class="add-bottom-padding">
+            <mat-checkbox formControlName="live">Is Live</mat-checkbox>
+            <mat-checkbox formControlName="unlimited">Is unlimited</mat-checkbox>
+          </div>
         </div>
       </mat-grid-tile>
     </mat-grid-list>
+    <div class="container">
+      <mat-form-field style="width: 100%; background-color: lightgray;">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="long_desc" placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="service.form.invalid">Submit</button>
+        <button mat-raised-button color="warn" (click)= "onClear()">Clear</button>
+      </div>
+    </div>
   </form>
 </div>

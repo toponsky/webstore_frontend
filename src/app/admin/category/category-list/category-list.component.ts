@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { CategoryService } from '../../services/category.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { NotificationService } from '../../services/notification.service';
 import { CategoryComponent } from '../category.component';
 import { LoadCategoryAction, DeleteCategoryAction } from '../../store/aCategory/aCategory.actions';
 import { aCategory, aCategoryState } from '../../store/aCategory/aCategory.model';
 import { DialogService } from '../../services/dialog.service';
+import { NotificationService } from '../../services/notification.service';
 
-import { getCategories } from '../../store/aCategory/aCategory.selector';
 
 @Component({
   selector: 'app-category-list',
@@ -50,11 +49,6 @@ export class CategoryListComponent implements OnInit {
         this.listData.paginator = this.paginator;
       }
     );
-    // this.store.select(getCategories).subscribe(
-    // ()=>{
-
-    // }      
-    // );
     this.loading = this.store.select(store => store.aCategory.loading);
     this.error = this.store.select(store => store.aCategory.error);
     this.store.dispatch(new LoadCategoryAction());

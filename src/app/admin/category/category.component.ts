@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { mergeMap } from 'rxjs/operators';
-import { of, pipe } from 'rxjs';
 import { CategoryService } from '../services/category.service';
 import { NotificationService } from '../services/notification.service';
 import { MatDialogRef } from '@angular/material';
-import { LoadCategoryAction } from '../store/aCategory/aCategory.actions';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { aCategory, aCategoryState } from '../store/aCategory/aCategory.model';
-import { UpdateCategoryAction, AddCategoryAction, aCategoryActitonTypes } from '../store/aCategory/aCategory.actions';
-import { merge } from 'rxjs';
+import { aCategoryState } from '../store/aCategory/aCategory.model';
+import { UpdateCategoryAction, AddCategoryAction } from '../store/aCategory/aCategory.actions';
 
 @Component({
   selector: 'app-category',

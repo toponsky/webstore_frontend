@@ -37,8 +37,8 @@ export class aProductEffects {
               return new LoadProductSuccessAction(items);
             }),
             catchError(error => {
-              if (error.error && error.error.message) {
-                this.notificationService.showFailMsg(error.error.message);
+              if (error.error && (error.error.message || error.error.errmsg)) {
+                this.notificationService.showFailMsg(error.error.message || error.error.errmsg);
               }
               if (data.failure) { data.failure(error); }
               return of(new LoadProductFailureAction(error));
@@ -56,8 +56,8 @@ export class aProductEffects {
           return new AddProductSuccessAction(item);
         }),
         catchError( error => {
-          if (error.error && error.error.message) {
-            this.notificationService.showFailMsg(error.error.message);
+          if (error.error && (error.error.message || error.error.errmsg)) {
+            this.notificationService.showFailMsg(error.error.message || error.error.errmsg);
           }
           if (data.failure) { data.failure(error); }
           return of(new AddProductFailureAction(error));
@@ -70,13 +70,13 @@ export class aProductEffects {
     ofType<UpdateProductAction>(aProductActitonTypes.UPDATE_PRODUCT),
     mergeMap(
       (data) => this.service.update(data.payload).pipe(
-        map(() => {
-          if (data.success) { data.success(data.payload); }
-          return new UpdateProductSuccessAction(data.payload);
+        map((item) => {
+          if (data.success) { data.success(item); }
+          return new UpdateProductSuccessAction(item);
         }),
         catchError( error => {
-          if (error.error && error.error.message) {
-            this.notificationService.showFailMsg(error.error.message);
+          if (error.error && (error.error.message || error.error.errmsg)) {
+            this.notificationService.showFailMsg(error.error.message || error.error.errmsg);
           }
           if (data.failure) { data.failure(error); }
           return of(new UpdateProductFailureAction(error));

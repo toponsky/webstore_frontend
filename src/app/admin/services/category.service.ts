@@ -25,9 +25,10 @@ export class CategoryService {
     });
   }
 
-  populateForm(category) {
-    this.form.setValue(category);
+  populateForm(formValues) {
+    this.form.setValue(formValues);
   }
+
   list() {
     return this.httpClient.get<aCategory[]>(this.url);
   }

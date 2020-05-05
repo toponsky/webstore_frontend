@@ -1,19 +1,23 @@
 import { aCategory } from '../aCategory/aCategory.model';
 
 export interface aProduct {
-  cartDesc: string;
-  id: number;
-  image: string;
-  live: number;
-  longDesc: string;
+  _id: string;
+  sku: string;
   name: string;
   price: number;
-  cargoPrice: number;
-  taxPercent: number;
-  productCategory:aCategory;
-  sku: string;
+  cargo_price: string;
+  tax_percent: number;
+  cart_desc: string;
+  long_desc: string;
+  thumb: string;
+  image: string;
+  category: string;
   stock: number;
-  unlimited: number;
+  sell_count: number;
+  live: boolean;
+  unlimited: boolean;
+  date_created: Date;
+  last_updated: Date;
 }
 
 export interface aProductStatus {
