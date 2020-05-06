@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Router} from '@angular/router';
-import * as AuthActions from "./auth.actions";
-import * as CartActions from "../cart/cart.actions";
-import * as OrderActions from "../order/order.actions";
-import * as ShowcaseActions from "../showcase/showcase.actions";
-import {TokenService} from "../../services/token.service";
-import {AccountService} from "../../services/account.service";
-import {of} from "rxjs";
-import {catchError, concatMap, map, switchMap} from "rxjs/operators";
+import * as AuthActions from './auth.actions';
+import * as CartActions from '../cart/cart.actions';
+import * as OrderActions from '../order/order.actions';
+import * as ShowcaseActions from '../showcase/showcase.actions';
+import {TokenService} from '../../services/token.service';
+import {AccountService} from '../../services/account.service';
+import {of} from 'rxjs';
+import {catchError, concatMap, map, switchMap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -35,10 +35,13 @@ export class AuthEffects {
                 payload: {email: credentials.email, password: credentials.password}
               }
             ]
-          }), catchError(error => {
+          }), catchError(err => {
             return of(
               new AuthActions.AuthError(
-                {error: error, errorEffect: AuthActions.SIGN_UP}));
+                {
+                  error: err,
+                  errorEffect: AuthActions.SIGN_UP
+                }));
           }));
       })
     );
@@ -53,7 +56,7 @@ export class AuthEffects {
         return this.tokenService.obtainAccessToken(credentials.email, credentials.password)
           .pipe(switchMap(res => {
             this.tokenService.saveToken(res);
-            this.router.navigate(["/account/dashboard"]);
+            this.router.navigate(['/account/dashboard']);
             return [
               {type: AuthActions.SIGN_IN_SUCCESS},
               {type: AuthActions.FETCH_VERIFICATION_STATUS}

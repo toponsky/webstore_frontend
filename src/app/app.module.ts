@@ -44,6 +44,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { aCategoryEffects } from './admin/store/aCategory/aCategory.effects';
 import { aProductEffects } from './admin/store/aProduct/aProduct.effects';
+import { aAuthEffects } from './admin/store/aAuth/aAuth.effects';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { aProductEffects } from './admin/store/aProduct/aProduct.effects';
       ShowcaseEffects,
       BrowseEffects,
       aCategoryEffects,
-      aProductEffects
+      aProductEffects,
+      aAuthEffects
     ]),
     RouterModule.forRoot(AppRoutes, {useHash: false, preloadingStrategy: PreloadAllModules}),
     OktaAuthModule,
@@ -90,7 +92,8 @@ import { aProductEffects } from './admin/store/aProduct/aProduct.effects';
       provide: OKTA_CONFIG, useValue: environment.oktaConfig
     }
   ],
-  bootstrap: [AppComponent],schemas: [
+  bootstrap: [AppComponent],
+  schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
   ]
 })

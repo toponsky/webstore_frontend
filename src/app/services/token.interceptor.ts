@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Store} from "@ngrx/store";
-import * as fromApp from "../store/app.reducers";
+import {Store} from '@ngrx/store';
+import * as fromApp from '../store/app.reducers';
 import * as AuthActions from '../store/auth/auth.actions';
-import {TokenService} from "./token.service";
+import {TokenService} from './token.service';
 import {BehaviorSubject, of, throwError} from 'rxjs';
-import {Router} from "@angular/router";
-import {catchError, filter, finalize, switchMap, take} from "rxjs/operators";
+import {Router} from '@angular/router';
+import {catchError, filter, finalize, switchMap, take} from 'rxjs/operators';
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  isRefreshingToken: boolean = false;
+  isRefreshingToken:boolean = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(private store: Store<fromApp.AppState>, private tokenService: TokenService, private router: Router) {
@@ -20,9 +20,17 @@ export class TokenInterceptor implements HttpInterceptor {
 
   addTokenToHeader(request: HttpRequest<any>, token): HttpRequest<any> {
     if (token != null) {
-      return request.clone({setHeaders: {Authorization: 'Bearer ' + token.access_token}})
+      return request.clone({
+        setHeaders: {
+          Authorization: 'Bearer ' + token.access_token
+        }
+      });
     }
-    return request.clone({setHeaders: {Authorization: 'Bearer ' + this.tokenService.getToken()}})
+    return request.clone({
+      setHeaders: {
+        Authorization: 'Bearer ' + this.tokenService.getToken()
+      }
+    });
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
