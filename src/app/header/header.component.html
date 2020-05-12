@@ -84,24 +84,23 @@
       </div>
 
       <div *ngIf="(cartState | async).fetchLoading" class="loader" style="font-size: 6px; position: relative"></div>
-      <div *ngIf="!(cartState | async).fetchLoading" ngbDropdown display="dynamic" placement="bottom-right">
+      <div *ngIf="!(cartState | async).fetchLoading" ngbDropdown display="dynamic" placement="bottom-right" class="dropdownCart">
 
-        <div id="dropdownCart" ngbDropdownToggle style="cursor: pointer; display: flex; align-items: center">
+        <div id="dropdownCart" ngbDropdownToggle style="cursor: pointer; display: flex; align-items: center" autoClose="true">
           <i class="fa fa-shopping-cart" style="font-size: 1.25em; display: inline-block; margin-right: 2px"></i>
           <div
             style="border-radius: 50%; padding: 0 5px; font-size: 12px; vertical-align: baseline; display: inline-block; background-color: #17a2b8; color: white">
             {{cartItemCount}}
           </div>
-
         </div>
 
-        <div ngbDropdownMenu aria-labelledby="dropdownCart" class="mt-2 cart-inside">
+        <div ngbDropdownMenu aria-labelledby="dropdownCart" class="mt-2 cart-inside" autoClose="true">
           <div class="list-group">
-            <a routerLink="/checkout" class="btn btn-info">Go to Cart</a>
+            <a routerLink="/checkout" class="btn btn-info dropdown-item">Go to Cart</a>
 
             <a *ngFor="let cartItem of(cartState | async).cart.cartItemList"
-               routerLink="/detail/{{cartItem.cartProduct.id}}" class="row pt-4 pb-4"
-               style="border-bottom: 1px solid #E1E8EE ">
+               routerLink="/detail/{{cartItem.cartProduct.id}}" class="row pt-4 pb-4 dropdown-item"
+               style="border-bottom: 1px solid #E1E8EE; background: inherit; display: inherit; margin: inherit;">
               <div class="col-md-4 col-5">
                 <img [src]="cartItem.cartProduct.thumb" style="width: 100px; height: 60px; padding-left: 30px">
               </div>

@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
-import {ProductDisplay} from "../cart/cart.reducer";
-import {Category} from "./browse.reducer";
-import {HttpError} from "../app.reducers";
+import {ProductDisplay} from '../cart/cart.reducer';
+import {Category} from './browse.reducer';
+import {HttpError} from '../app.reducers';
 
 export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
@@ -10,7 +10,6 @@ export const FETCH_PRODUCTS_APPEND_SUCCESS = 'FETCH_PRODUCTS_APPEND_SUCCESS';
 export const FETCH_CATEGORY = 'FETCH_CATEGORY';
 export const FETCH_CATEGORY_SUCCESS = 'FETCH_CATEGORY_SUCCESS';
 export const BROWSE_ERROR = 'BROWSE_ERROR';
-
 
 export class FetchProducts implements Action {
   readonly type = FETCH_PRODUCTS;

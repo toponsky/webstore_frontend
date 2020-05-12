@@ -1,13 +1,13 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import * as fromApp from "../store/app.reducers";
-import {HttpError} from "../store/app.reducers";
-import {Store} from "@ngrx/store";
-import * as BrowseActions from "../store/browse/browse.actions";
-import {ProductDisplay} from "../store/cart/cart.reducer";
-import {Observable, Subscription} from "rxjs";
-import {Category} from "../store/browse/browse.reducer";
-import {take} from "rxjs/operators";
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as fromApp from '../store/app.reducers';
+import { HttpError } from '../store/app.reducers';
+import { Store } from '@ngrx/store';
+import * as BrowseActions from '../store/browse/browse.actions';
+import { ProductDisplay } from '../store/cart/cart.reducer';
+import { Observable, Subscription } from 'rxjs';
+import { Category } from '../store/browse/browse.reducer';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -18,7 +18,7 @@ import {take} from "rxjs/operators";
 export class BrowseComponent implements OnInit, OnDestroy {
 
 
-  sortBy: Object[] = [
+  sortBy: any[] = [
     {
       display: 'Any',
       value: 'any'
@@ -37,8 +37,13 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
 
   browseState: Observable<{
-    products: ProductDisplay[], categories: Category[], canFetch: boolean,
-    selectedPage: number, selectedSort: string, selectedCategory: string, errors: HttpError[]
+    products: ProductDisplay[],
+    categories: Category[],
+    canFetch: boolean,
+    selectedPage: number,
+    selectedSort: string,
+    selectedCategory: string,
+    errors: HttpError[]
   }>;
   canFetchSubscription: Subscription;
 
@@ -51,7 +56,6 @@ export class BrowseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.browseState = this.store.select('browse');
     this.canFetchSubscription = this.browseState.subscribe(data => {
       this.canFetch = data.canFetch;
@@ -70,10 +74,10 @@ export class BrowseComponent implements OnInit, OnDestroy {
         sortBy: data.selectedSort,
         category: data.selectedCategory
       });
-      if (data.categories.length == 0) {
+      if (data.categories.length === 0) {
         this.store.dispatch(new BrowseActions.FetchCategory());
       }
-      if (data.products.length == 0) {
+      if (data.products.length === 0) {
         this.getProducts(this.selectedPage, this.selectedSort, this.selectedCategory);
       }
     });

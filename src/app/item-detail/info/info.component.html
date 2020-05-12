@@ -1,0 +1,169 @@
+<div class='product-tab'>
+  <nav ngbNav #nav="ngbNav" class="nav-tabs">
+    <ng-container ngbNavItem>
+      <a ngbNavLink>Description</a>
+      <ng-template ngbNavContent>
+        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
+          master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
+          keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
+          salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      </ng-template>
+    </ng-container>
+    <ng-container ngbNavItem>
+      <a ngbNavLink>Details</a>
+      <ng-template ngbNavContent>
+        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
+          farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
+          ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+          helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+          8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+          stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+      </ng-template>
+    </ng-container>
+    <ng-container ngbNavItem>
+      <a ngbNavLink>Reviews ({{reviewList.length}})</a>
+      <ng-template ngbNavContent>
+        <div class="row">
+          <!-- Rating -->
+          <div class="col-md-3">
+            <div id="rating" *ngIf="reviewList?.length > 0">
+              <div class="rating-avg">
+                <span>{{starRate.SumSart}}</span>
+                <div class="rating-stars">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                </div>
+              </div>
+              <ul class="rating">
+                <li>
+                  <div class="rating-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="rating-progress">
+                    <div [ngStyle]="applyStarPer(5)"></div>
+                  </div>
+                  <span class="sum">{{starRate.FiveStar}}</span>
+                </li>
+                <li>
+                  <div class="rating-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                  <div class="rating-progress">
+                    <div [ngStyle]="applyStarPer(4)"></div>
+                  </div>
+                  <span class="sum">{{starRate.FourStar}}</span>
+                </li>
+                <li>
+                  <div class="rating-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                  <div class="rating-progress">
+                    <div [ngStyle]="applyStarPer(3)"></div>
+                  </div>
+                  <span class="sum">{{starRate.ThreeStar}}</span>
+                </li>
+                <li>
+                  <div class="rating-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                  <div class="rating-progress">
+                    <div [ngStyle]="applyStarPer(2)"></div>
+                  </div>
+                  <span class="sum">{{starRate.TwoStar}}</span>
+                </li>
+                <li>
+                  <div class="rating-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                  <div class="rating-progress">
+                    <div [ngStyle]="applyStarPer(1)"></div>
+                  </div>
+                  <span class="sum">{{starRate.OneStar}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /Rating -->
+
+          <!-- Reviews -->
+          <div class="col-md-6">
+            <div id="reviews" *ngIf="reviewList?.length === 0">
+              There is no review, welcome to add first review for this product.
+            </div>
+            <div id="reviews" *ngIf="reviewList?.length > 0">
+              <ul class="reviews">
+                <li *ngFor="let review of pageOfItems">
+                  <div class="review-heading">
+                    <h5 class="name">{{ review.user.first_name }}</h5>
+                    <p class="date">{{review.dating | date:'medium'}}</p>
+                    <div class="review-rating">
+                      <i *ngFor="let i of getStarNumber(review.rating)" class="fa fa-star" style="color: #D10024;"></i>
+                      <i *ngFor="let le of getStarNumber(review.rating, true)" class="fa fa-star-o empty"></i>
+                    </div>
+                  </div>
+                  <div class="review-body">
+                    <p>{{review.comment}}</p>
+                  </div>`
+                </li>
+              </ul>
+              <ul class="reviews-pagination">
+                <jw-pagination [pageSize]='5' [maxPages]='3' [items]="reviewList" (changePage)="onChangePage($event)"></jw-pagination>
+              </ul>
+            </div>
+          </div>
+          <!-- /Reviews -->
+
+          <!-- Review Form -->
+          <div *ngIf="authenticated && !isSubmitReivew" class="col-md-3">
+            <div id="review-form">
+              <form [formGroup]="form" class="review-form">
+                <input type="hidden" formControlName="_id">
+                <input type="hidden" formControlName="user">
+                <input type="hidden" formControlName="prodId">
+                <textarea class="input" formControlName="comment" placeholder="Your Review*"></textarea>
+                <div class="input-rating">
+                  <span>Your Rating*: </span>
+                  <div class="stars">
+                    <input id="star5" name="rating" type="radio" value="5" formControlName="rating"><label for="star5"></label>
+                    <input id="star4" name="rating" type="radio" value="4" formControlName="rating"><label for="star4"></label>
+                    <input id="star3" name="rating" type="radio" value="3" formControlName="rating"><label for="star3"></label>
+                    <input id="star2" name="rating" type="radio" value="2" formControlName="rating"><label for="star2"></label>
+                    <input id="star1" name="rating" type="radio" value="1" formControlName="rating"><label for="star1"></label>
+                  </div>
+                  
+                </div>
+                <button type="submit" class="btn btn-danger review-form-btn"(click)="onSubmit()" [disabled]="form.invalid">Submit</button>
+              </form>
+            </div>
+          </div>
+          <!-- /Review Form -->
+        </div>
+      </ng-template>
+    </ng-container>
+  </nav>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

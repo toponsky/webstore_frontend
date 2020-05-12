@@ -16,7 +16,7 @@
           Problem loading products...
         </div>
         <div class="col-lg-3 col-md-6 col-12" *ngFor="let related of relatedProducts" style="text-align: center">
-          <a routerLink="/detail/{{related.id}}">
+          <a routerLink="/detail/{{related._id}}">
             <img src="{{related.thumb}}" class="p-2" style="height: 200px; width: 200px; display: inline-block">
             <p> {{related.name }} $ {{related.price}}</p>
           </a>

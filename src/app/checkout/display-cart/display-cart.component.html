@@ -33,11 +33,11 @@
             </div>
 
             <div class="col-md-3 quantity">
-              <button class="plus-btn" type="button" name="button">
+              <button class="plus-btn" type="button" name="button" (click)="UpdateCartItemAmount(cartItem.id, cartItem.amount + 1)">
                 +
               </button>
               <input type="text" name="name" min="1" value="{{cartItem.amount}}">
-              <button class="minus-btn" type="button" name="button">
+              <button class="minus-btn" type="button" name="button" (click)="UpdateCartItemAmount(cartItem.id, cartItem.amount - 1)">
                 -
               </button>
             </div>

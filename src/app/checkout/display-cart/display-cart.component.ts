@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {Cart} from "../../store/cart/cart.reducer";
-import {ActivatedRoute, Router} from "@angular/router";
-import * as fromApp from "../../store/app.reducers";
-import {HttpError} from "../../store/app.reducers";
-import {Store} from "@ngrx/store";
-import * as CartActions from "../../store/cart/cart.actions";
-import * as OrderActions from "../../store/order/order.actions";
-import * as AuthActions from "../../store/auth/auth.actions";
-import {take} from "rxjs/operators";
+import {Observable, Subscription} from 'rxjs';
+import {Cart} from '../../store/cart/cart.reducer';
+import {ActivatedRoute, Router} from '@angular/router';
+import * as fromApp from '../../store/app.reducers';
+import {HttpError} from '../../store/app.reducers';
+import {Store} from '@ngrx/store';
+import * as CartActions from '../../store/cart/cart.actions';
+import * as OrderActions from '../../store/order/order.actions';
+import * as AuthActions from '../../store/auth/auth.actions';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-display-cart',
@@ -34,13 +34,12 @@ export class DisplayCartComponent implements OnInit, OnDestroy {
     this.cartPriceSubscription = this.cartState.subscribe(
       (data) => {
         let cp = 0;
-        for (let i = 0; i < data.cart.cartItemList.length; i++) {
-          const product = data.cart.cartItemList[i].cartProduct;
-          cp = cp + (product.price * data.cart.cartItemList[i].amount);
-        }
-        this.cartPrice = cp;
-      }
-    );
+        data.cart.cartItemList.forEach(cartItem => {
+          const product = cartItem.cartProduct;
+          cp += (product.price * cartItem.amount);
+          this.cartPrice = cp;
+        });
+      });
   }
 
   ngOnDestroy() {
@@ -59,6 +58,14 @@ export class DisplayCartComponent implements OnInit, OnDestroy {
     this.router.navigate(['/detail/', id], {relativeTo: this.route});
   }
 
+  UpdateCartItemAmount(id, amount: number) {
+    if(amount <= 0) {
+      this.store.dispatch(new CartActions.RemoveFromCart(id));
+    } else {
+      this.store.dispatch(new CartActions.UpdateCartItemAmount({ id, amount }));
+    }
+  }
+
   removeFromCart(id) {
     this.store.dispatch(new CartActions.RemoveFromCart(id));
   }
@@ -72,7 +79,7 @@ export class DisplayCartComponent implements OnInit, OnDestroy {
           this.router.navigate(['form'], {relativeTo: this.route});
         } else {
           this.store.dispatch(new AuthActions.FetchVerificationStatus());
-          alert("Your account is inactive. You must activate your account in order to purchase.\nPlease check your email.");
+          alert('Your account is inactive. You must activate your account in order to purchase.\nPlease check your email.');
         }
       });
 

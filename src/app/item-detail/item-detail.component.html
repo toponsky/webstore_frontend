@@ -5,12 +5,10 @@
   <div *ngIf="inlineLoading" class="loader"></div>
   <div *ngIf="inlineLoading" style="min-height: 50vh"></div>
   <div *ngIf="product != null && inlineLoading == false" class="row pt-5">
-    <div class="col-md-7">
-      <div class="left-column">
-        <img class="img-responsive" style="width: 95%" src="{{ product.image }}" alt="{{ product.name  }}">
-      </div>
+    <div class="col-md-7 product-image-col">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
     </div>
-    <div class="col-md-4 mr-auto">
+    <div class="col-md-4 mr-auto product-content-col">
       <!-- Right Column -->
       <div class="right-column">
 
@@ -103,6 +101,8 @@
     </div>
   </ng-template>
 
+  <app-info></app-info>
+  
   <div class="row mt-5">
     <app-related></app-related>
   </div>

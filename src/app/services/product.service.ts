@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {Product, ProductDisplay} from "../store/cart/cart.reducer";
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Product, ProductDisplay} from '../store/cart/cart.reducer';
+import {ProductReview} from '../store/productreview/productreview.actions';
 
 
 @Injectable()
@@ -8,6 +9,8 @@ export class ProductService {
 
   url: string = 'http://localhost:5500/v1/product/';
   categoryUrl: string = 'http://localhost:5500/v1/category';
+
+  securedUrl: string = 'http://localhost:5500/v1/secured/product/';
 
   browsePageSize: number = 20;
   searchPageSize: number = 10;
@@ -73,6 +76,19 @@ export class ProductService {
     return this.httpClient.get<ProductDisplay[]>(this.url + 'search', {
       params
     });
+  }
+
+
+  getProductReview(prodId: string) {
+    let params = new HttpParams();
+    params = params.append('prodId', prodId);
+    return this.httpClient.get<ProductReview[]>(this.url + 'review', {
+      params
+    });
+  }
+
+  addProductReview(productReview: ProductReview) {
+    return this.httpClient.post<ProductReview>(this.securedUrl + 'review', productReview);
   }
 
   getCategory() {

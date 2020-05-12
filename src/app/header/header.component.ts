@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import * as fromApp from "../store/app.reducers";
-import {HttpError} from "../store/app.reducers";
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {NgbDropdownMenu} from '@ng-bootstrap/ng-bootstrap';
+import * as fromApp from '../store/app.reducers';
+import {HttpError} from '../store/app.reducers';
 import * as CartActions from '../store/cart/cart.actions';
 import * as AuthActions from '../store/auth/auth.actions';
-import {Observable, Subscription} from "rxjs";
-import {Cart} from "../store/cart/cart.reducer";
-import {Router} from "@angular/router";
-import {NgbDropdownConfig} from "@ng-bootstrap/ng-bootstrap";
+import {Observable, Subscription} from 'rxjs';
+import {Cart} from '../store/cart/cart.reducer';
+import {Router} from '@angular/router';
+import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -18,6 +19,8 @@ import {NgbDropdownConfig} from "@ng-bootstrap/ng-bootstrap";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  @ViewChild(NgbDropdownMenu, {static: true}) caseCodeDropdown: NgbDropdownMenu;
+  private isOpen = '';
   cartState: Observable<{ cart: Cart, errors: HttpError[], loading: boolean }>;
   cartItemCountSubscription: Subscription;
   cartItemCount: number = 0;
@@ -42,15 +45,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (data.authenticated && !this.innerAuthState) {
             this.innerAuthState = true;
             this.store.dispatch(new CartActions.FetchCart());
-            this.cartItemCountSubscription = this.cartState.subscribe(data => {
+            this.cartItemCountSubscription = this.cartState.subscribe(resData => {
               let totalCount = 0;
-              for (let i = 0; i < data.cart.cartItemList.length; i++) {
-                totalCount += data.cart.cartItemList[i].amount;
-              }
+              resData.cart.cartItemList.forEach(cartItem => {
+                totalCount += cartItem.amount;
+              });
               this.cartItemCount = totalCount;
             });
-          }
-          else if (!data.authenticated) {
+          } else if (!data.authenticated) {
             this.innerAuthState = false;
             this.cartItemCount = 0;
             if (this.cartItemCountSubscription != null) {
@@ -85,5 +87,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let url = '/search/' + search.value;
 
     this.router.navigate([url]);
+  }
+
+  toggled(event) {
+    if (event) {
+        console.log('is open');
+        this.isOpen = 'is open';
+    } else {
+      console.log('is closed');
+      this.isOpen = 'is closed';
+    }
   }
 }

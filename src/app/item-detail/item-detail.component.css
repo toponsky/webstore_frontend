@@ -134,6 +134,22 @@
   /*margin-right: 20px;*/
 }
 
+.ngx-gallery { display: inline-block; margin-bottom: 20px; }
+
+
+
+
+/* No greater than 900px, no less than 400px */
+@media (max-width:1200px) and (min-width:780px) {
+  .product-image-col {
+    flex: inherit;
+    max-width: inherit;
+  }
+  .product-content-col {
+    flex: inherit;
+    max-width: inherit;
+  }
+}
 /*.cart-btn {*/
 /*display: inline-block;*/
 /*background-color: #7DC855;*/

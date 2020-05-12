@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
@@ -45,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { aCategoryEffects } from './admin/store/aCategory/aCategory.effects';
 import { aProductEffects } from './admin/store/aProduct/aProduct.effects';
 import { aAuthEffects } from './admin/store/aAuth/aAuth.effects';
+import { ProductReviewEffects } from './store/productreview/productreivew.effects';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { aAuthEffects } from './admin/store/aAuth/aAuth.effects';
       BrowseEffects,
       aCategoryEffects,
       aProductEffects,
-      aAuthEffects
+      aAuthEffects,
+      ProductReviewEffects
     ]),
     RouterModule.forRoot(AppRoutes, {useHash: false, preloadingStrategy: PreloadAllModules}),
     OktaAuthModule,
