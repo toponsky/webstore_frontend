@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
@@ -8,14 +8,16 @@ import * as fromApp from '../../store/app.reducers';
 import { ProductService } from '../../services/product.service';
 import { ProductReview, FetchProductReview, AddProductView } from 'src/app/store/productreview/productreview.actions';
 import { StarRating } from '../../store/productreview/productreview.actions';
+import { Product } from 'src/app/store/cart/cart.reducer';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.css']
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent implements OnInit, OnDestroy {
 
+  @Input() product: Product;
   starRate: StarRating;
   public form: FormGroup = new FormGroup({
     _id: new FormControl(null),
@@ -57,6 +59,15 @@ export class InfoComponent implements OnInit {
         this.isSubmitReivew = false;
       });
     });
+  }
+
+  ngOnDestroy() {
+    if (this.paramSubscription != null) {
+      this.paramSubscription.unsubscribe();
+    }
+    if (this.reviewListSubscription != null) {
+      this.reviewListSubscription.unsubscribe();
+    }
   }
 
   onSubmit() {

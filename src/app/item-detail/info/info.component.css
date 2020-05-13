@@ -61,7 +61,9 @@ Table OF Contents
 .product-tab {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: #86939E;
+  margin-top: 30px;
 }
+
 #product-tab {
   margin-top: 60px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -181,6 +183,7 @@ Table OF Contents
 .reviews li {
   position: relative;
   padding-left: 145px;
+  list-style: none;
 }
 
 .reviews .review-heading {
@@ -253,10 +256,12 @@ Table OF Contents
 /*-- Review Form --*/
 
 .review-form .input {
+  margin-top: 15px;
   margin-bottom: 15px;
 }
 
 .review-form .input-rating {
+  margin-top: 15px;
   margin-bottom: 15px;
 }
 
@@ -302,6 +307,8 @@ Table OF Contents
   background-color: rgb(209, 0, 36);
   color: rgb(255, 255, 255);
   font-size: 20px;
-  width: 60%;
+  width: 200px;
+  margin-left: auto;
+  display: block;
 
 }

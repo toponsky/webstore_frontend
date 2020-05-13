@@ -9,3 +9,11 @@ p {
   overflow: hidden;
 }
 
+@media (min-width: 992px){
+  .related .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: inherit;
+  }
+}
+
+

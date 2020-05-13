@@ -11,7 +11,10 @@ export interface Product {
   cartDesc: string;
   id: number;
   image: string;
+  images: string;
   live: number;
+  details: string;
+  shortDesc: string;
   longDesc: string;
   name: string;
   price: number;
@@ -20,7 +23,7 @@ export interface Product {
   productCategory: {
     name: string,
     id: number
-  },
+  };
   sku: string;
   stock: number;
   unlimited: number;

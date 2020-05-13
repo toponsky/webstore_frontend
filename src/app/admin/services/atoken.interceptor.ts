@@ -18,7 +18,6 @@ export class ATokenInterceptor implements HttpInterceptor {
   }
 
   addTokenToHeader(request: HttpRequest<any>, token): HttpRequest<any> {
-    
     if (token != null) {
       return request.clone({
         setHeaders: {
@@ -34,14 +33,13 @@ export class ATokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
-    debugger
     if (!request.url.includes('v1/admin/token') && request.url.includes('/admin/')) {
       if (!this.tokenService.getToken()) {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/login']);
       } else {
         return next.handle(this.addTokenToHeader(request, null)).pipe(catchError(
           error => {
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin/login']);
             return throwError(error);
           }
         ));

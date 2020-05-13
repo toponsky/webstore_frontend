@@ -1,9 +1,9 @@
-import {Routes} from "@angular/router";
-import {AccountComponent} from "./account.component";
-import {ListOrdersComponent} from "./list-orders/list-orders.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {AuthGuardService} from "../services/auth-guard.service";
-import {DetailsComponent} from "./details/details.component";
+import {Routes} from '@angular/router';
+import {AccountComponent} from './account.component';
+import {ListOrdersComponent} from './list-orders/list-orders.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {AuthGuardService} from '../services/auth-guard.service';
+import {DetailsComponent} from './details/details.component';
 
 
 export const AccountRoutes: Routes = [

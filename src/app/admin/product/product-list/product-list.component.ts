@@ -31,10 +31,10 @@ export class ProductListComponent implements OnInit {
               private dialogService: DialogService,
               private dialog: MatDialog,
               private store: Store<aProductState>) {
-                this.dialogConfig.disableClose = true;
-                this.dialogConfig.autoFocus = true;
-                this.dialogConfig.width = '60%';
-              }
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.width = '70%';
+  }
 
   ngOnInit() {
     this.store.select(store => store.aProduct.list).subscribe(
@@ -64,6 +64,16 @@ export class ProductListComponent implements OnInit {
   }
 
   onEdit(row: aProduct) {
+    if (!row.short_desc) {
+      row.short_desc = '';
+    }
+    if (!row.details) {
+      row.details = '';
+    }
+
+    if (!row.images) {
+      row.images = '';
+    }
     this.service.populateForm(row);
     this.dialog.open(ProductComponent, this.dialogConfig);
   }

@@ -16,7 +16,7 @@
         <div class="product-description">
           <span>{{ product.productCategory.name }}</span>
           <h1>{{ product.name}}</h1>
-          <p> {{ product.longDesc }}</p>
+          <p> {{ product.shortDesc }}</p>
         </div>
 
         <!-- Product Configuration -->
@@ -101,7 +101,7 @@
     </div>
   </ng-template>
 
-  <app-info></app-info>
+  <app-info [product] = "product"></app-info>
   
   <div class="row mt-5">
     <app-related></app-related>

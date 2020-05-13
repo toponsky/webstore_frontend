@@ -1,23 +1,15 @@
 <div class='product-tab'>
   <nav ngbNav #nav="ngbNav" class="nav-tabs">
-    <ng-container ngbNavItem>
+    <ng-container ngbNavItem *ngIf="product !== undefined && product !== null">
       <a ngbNavLink>Description</a>
       <ng-template ngbNavContent>
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-          master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-          keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
-          salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        <p>{{product.longDesc}}</p>
       </ng-template>
     </ng-container>
-    <ng-container ngbNavItem>
+    <ng-container ngbNavItem *ngIf="product !== undefined && product !== null">
       <a ngbNavLink>Details</a>
       <ng-template ngbNavContent>
-        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
-          farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
-          ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
-          helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
-          8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
-          stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        <p>{{product.details}}</p>
       </ng-template>
     </ng-container>
     <ng-container ngbNavItem>
@@ -109,7 +101,7 @@
           <!-- /Rating -->
 
           <!-- Reviews -->
-          <div class="col-md-6">
+          <div [className]="authenticated && !isSubmitReivew ? 'col-md-6':'col-md-9'">
             <div id="reviews" *ngIf="reviewList?.length === 0">
               There is no review, welcome to add first review for this product.
             </div>
@@ -126,7 +118,7 @@
                   </div>
                   <div class="review-body">
                     <p>{{review.comment}}</p>
-                  </div>`
+                  </div>
                 </li>
               </ul>
               <ul class="reviews-pagination">
@@ -135,32 +127,31 @@
             </div>
           </div>
           <!-- /Reviews -->
-
-          <!-- Review Form -->
-          <div *ngIf="authenticated && !isSubmitReivew" class="col-md-3">
-            <div id="review-form">
-              <form [formGroup]="form" class="review-form">
-                <input type="hidden" formControlName="_id">
-                <input type="hidden" formControlName="user">
-                <input type="hidden" formControlName="prodId">
-                <textarea class="input" formControlName="comment" placeholder="Your Review*"></textarea>
-                <div class="input-rating">
-                  <span>Your Rating*: </span>
-                  <div class="stars">
-                    <input id="star5" name="rating" type="radio" value="5" formControlName="rating"><label for="star5"></label>
-                    <input id="star4" name="rating" type="radio" value="4" formControlName="rating"><label for="star4"></label>
-                    <input id="star3" name="rating" type="radio" value="3" formControlName="rating"><label for="star3"></label>
-                    <input id="star2" name="rating" type="radio" value="2" formControlName="rating"><label for="star2"></label>
-                    <input id="star1" name="rating" type="radio" value="1" formControlName="rating"><label for="star1"></label>
-                  </div>
-                  
-                </div>
-                <button type="submit" class="btn btn-danger review-form-btn"(click)="onSubmit()" [disabled]="form.invalid">Submit</button>
-              </form>
-            </div>
-          </div>
-          <!-- /Review Form -->
         </div>
+         <!-- Review Form -->
+         <div *ngIf="authenticated && !isSubmitReivew" class="col-md-12">
+          <div id="review-form">
+            <form [formGroup]="form" class="review-form">
+              <input type="hidden" formControlName="_id">
+              <input type="hidden" formControlName="user">
+              <input type="hidden" formControlName="prodId">
+              <textarea class="input" formControlName="comment" placeholder="Your Review*"></textarea>
+              <div class="input-rating">
+                <span>Your Rating*: </span>
+                <div class="stars">
+                  <input id="star5" name="rating" type="radio" value="5" formControlName="rating"><label for="star5"></label>
+                  <input id="star4" name="rating" type="radio" value="4" formControlName="rating"><label for="star4"></label>
+                  <input id="star3" name="rating" type="radio" value="3" formControlName="rating"><label for="star3"></label>
+                  <input id="star2" name="rating" type="radio" value="2" formControlName="rating"><label for="star2"></label>
+                  <input id="star1" name="rating" type="radio" value="1" formControlName="rating"><label for="star1"></label>
+                </div>
+                
+              </div>
+              <button type="submit" class="btn btn-danger review-form-btn" (click)="onSubmit()" [disabled]="form.invalid">Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- /Review Form -->
       </ng-template>
     </ng-container>
   </nav>

@@ -1,3 +1,18 @@
-<div class="container">
-  <app-login></app-login>
+<div class="container" style="min-height: 80vh; padding-top: 50px">
+  <div class="row mt-5">
+    <div class="col-md-12" style="text-align: center">
+      <h3>Admin Dashboard</h3>
+    </div>
+  </div>
+  <div class="row p2 pb-4 mt-5" style="min-height: 40vh">
+    <div class="col-md-3">
+      <div class="w-100 title"><a routerLink="/admin/category" routerLinkActive="active" class="btn">Category</a></div>
+      <div class="w-100 title"><a routerLink="/admin/product" routerLinkActive="active" class="btn">Product</a></div>
+    </div>
+    <div class="col-md-9 account pb-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
+
+

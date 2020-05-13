@@ -4,6 +4,7 @@ export interface aAuth  {
 }
 
 export interface aAuthStatus {
+  authAdmin: boolean;
   token: string;
   loading: boolean;
   error: Error;

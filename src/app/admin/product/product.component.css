@@ -1,3 +1,4 @@
+
 .normal-form {
   margin: 10;
 }
@@ -27,6 +28,7 @@ mat-radio-group mat-radio-button {
 .button-row {
   display: flex;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .button-row button {
@@ -40,3 +42,7 @@ mat-radio-group mat-radio-button {
   margin-left: 20px;
 }
 
+textarea {
+  resize: none;
+  height: 464px;
+}

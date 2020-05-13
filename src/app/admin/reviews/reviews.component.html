@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="search-dev">
+    <mat-form-field class="search-form-field">
+      <input matInput [(ngModel)] ="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="mat-evlevation-z8>">
+    <mat-table [dataSource]="listData" matSort>
+      <!-- Address Column -->
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Customer </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.user.first_name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Comment </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="rating">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Rating </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.rating}} </mat-cell>
+      </ng-container>ß
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data
+        </mat-footer-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No Data
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+     </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

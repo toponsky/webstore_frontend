@@ -20,16 +20,19 @@ import { CategoryComponent } from './category/category.component';
 import { CategoryListComponent } from './category/category-list/category-list.component';
 
 
+
 import { ConfirmDialogComponent } from './shared/ui/confirm-dialog/confirm-dialog.component';
 import { aCategoryReduecer } from './store/aCategory/aCategory.reducer';
 import { aProductReduecer } from './store/aProduct/aProduct.reducer';
 import { aAuthReduecer } from './store/aAuth/aAuth.reducer';
 import { LoginComponent } from './login/login.component';
 
+import { AuthGuard } from './services/auth.guard';
 import { ProductService } from './services/product.service';
 import { AuthService } from './services/auth.service';
 
 import { ATokenInterceptor } from './services/atoken.interceptor';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 
 @NgModule({
@@ -40,7 +43,8 @@ import { ATokenInterceptor } from './services/atoken.interceptor';
     CategoryComponent,
     CategoryListComponent,
     ConfirmDialogComponent,
-    LoginComponent
+    LoginComponent,
+    ReviewsComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -61,6 +65,7 @@ import { ATokenInterceptor } from './services/atoken.interceptor';
     RouterModule.forChild(AdminhRoutes)
   ],
   providers: [
+    AuthGuard,
     ProductService,
     AuthService,
     {
